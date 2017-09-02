@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lectures</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+
+
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function parseJsonObjToRow(key, jsonObj){
+             return [key, jsonObj['course'], jsonObj['subjects'], jsonObj['date']]
+        }
+
+    addLectureFunc = function () {
+
+        var emailFromUrl = getParameterByName("user", window.location.href)
+
+        var newUrl = "addLecture.html?user=" + emailFromUrl
+
+        location.replace(newUrl)
+    }
+
+
+
+
+        $(document).ready(function() {
+
+            var user = getParameterByName("user", window.location.href)
+
+            urlRequest = "http://10.100.102.4:3000/getLectures?user=" + user
+            var xhr = createCORSRequest('GET', urlRequest);
+            if (!xhr) {
+                throw new Error('CORS not supported');
+            }
+
+
+            var table
+
+            dataSetFromServer = []
+            xhr.onload = function() {
+                var responseText = xhr.responseText;
+                console.log(responseText)
+                data = JSON.parse(responseText)
+
+                for(var key in data){
+                    dataSetFromServer.push(parseJsonObjToRow(key, data[key]))
+                }
+
+                table = $("#table").DataTable( {
+                    "order": [[3, "desc"]],
+                    "columnDefs": [ {
+                        "targets": 4,
+                        "data": null,
+                        "defaultContent": "<button onclick='startLesson(this)'>start</button> <button onclick='deleteLesson(this)'>delete</button>"
+                    } ]
+                    ,
+                    data: dataSetFromServer,
+                    columns: [
+                        { title: "lecture name" },
+                        { title: "course" },
+                        { title: "subject" },
+                        { title: "date" },
+                        { title: ""}
+                    ]
+                });
+                };
+                xhr.send();
+
+
+                function MM_openBrWindow(theURL,winName,features) { //v2.0
+                    window.open(theURL,winName,features);
+                }
+
+                startLesson = function(b) {
+
+                    var data = table.row( $(b).parents('tr') ).data();
+
+                    var lectureName = data[0]
+
+                    var url = "http://10.100.102.4:3000/startLecture?lecture=" + lectureName
+
+                    var xhr = createCORSRequest('GET', url);
+                    if (!xhr) {
+                        throw new Error('CORS not supported');
+                    }
+
+                    xhr.onload = function() {
+                        var responseText = xhr.responseText;
+                        if(responseText === "ok"){
+
+                            MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
+
+                        }else{
+                            alert("could not open new lecture : " + responseText)
+                        }
+
+
+                    }
+
+                    xhr.send()
+                }
+
+                deleteLesson = function (b) {
+                    var data = table.row( $(b).parents('tr') ).data();
+                    alert( data[0] +" is deleting" );
+                }
+
+
+
+
+
+        } );
+
+    </script>
+
+</head>
+<body>
+
+<h1>Your lectures :</h1>
+
+<table id="table" class="display" width="100%"></table>
+
+
+<input type="button" value="Add Lecture" onclick= addLectureFunc()>
+
+
+</body>
+</html>

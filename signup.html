@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>signup page</title>
+</head>
+<body>
+<h1>sign up page !</h1>
+
+email:<br>
+<input type="text" id="email" name="email">
+<br>
+password:<br>
+<input type="text" id="password">
+<br>
+enter password again:<br>
+<input type="text" id="passwordVerifier">
+<br><br>
+<input type="button" value="Submit" onclick="signUp()">
+
+
+<script>
+
+
+    function createCORSRequest(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            xhr.open(method, url, true);
+
+        } else if (typeof XDomainRequest != "undefined") {
+
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+
+        } else {
+            // Otherwise, CORS is not supported by the browser.
+            xhr = null;
+        }
+        return xhr;
+    }
+
+
+    function signUp(){
+
+        email = document.getElementById("email").value
+
+        password = document.getElementById("password").value
+
+        passwordVerified = document.getElementById("passwordVerifier").value
+
+        if(! email ){
+            alert('email is empty')
+            return
+        }
+
+        if(email.indexOf('@') === -1){
+            alert('email is not valid')
+            return
+        }
+
+        if(!password){
+            alert('password is empty')
+            return
+        }
+
+        if(password.length < 8){
+            alert('password must be at least 8 characters')
+            return
+        }
+
+        if(! (password === passwordVerified)){
+            alert('password does not match ')
+            return
+        }
+
+
+        urlRequest = "http://192.168.1.5:3000/newUser?email=" + email + "&password=" +password
+        var xhr = createCORSRequest('GET', urlRequest);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+
+        xhr.onload = function() {
+            var responseText = xhr.responseText;
+            if(responseText === "true"){
+                location.replace('lectures.html?user=' +email)
+            }else if (responseText === "exists"){
+                alert("user allready exists")
+            }
+        };
+
+        xhr.send();
+
+    }
+
+
+</script>
+
+</body>
+</html>

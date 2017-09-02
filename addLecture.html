@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>add lecture</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+
+
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        });
+
+        $(document).ready(function() {
+            var max_fields      = 10; //maximum input boxes allowed
+            var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+            var user = getParameterByName("user", window.location.href)
+
+            var x = 1; //initlal text box count
+
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+
+                    var newCreation = "<div><input type=\"text\" name=\"mytext[]\"/><a href=\"#\" class=\"remove_field\">Remove</a></div>"
+                    $(wrapper).append(newCreation); //add input box
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+            addLectureFunc = function(){
+
+
+                var lessonName = document.getElementById("lesson_name").value
+
+                var course =  document.getElementById("course_select"   ).value
+
+                //the user we can get from the url that was sent to us
+
+                var dateUsed = document.getElementById("datepicker").value
+
+                if(dateUsed === ""){
+                    alert("date is empty")
+                    //TODO return
+                }
+
+                var hourTime = document.getElementById("hours_time").value
+
+                if(hourTime === ""){
+                    alert("hour is empty")
+                }
+
+                var lengthLesson = document.getElementById("length_lesson").value
+
+                subjects = []
+                //go over all the 'div' element in the wrapper in order to get their text value ( subjects)
+                $('.input_fields_wrap').each(function(i, obj) {
+                    Array.from(obj.childNodes).forEach(function (elem) {
+                        if(elem instanceof HTMLDivElement){
+                            subjects.push(elem.firstChild.value)
+                        }
+                    })
+                });
+
+                urlReq = "http://192.168.1.5:3000/addLecture?" +
+                            "user=" + user +
+                            "&name=" + lessonName +
+                            "&course=" + course +
+                            "&date=" + dateUsed +
+                            "&hour=" + hourTime +
+                            "&length=" + lengthLesson +
+                            "&subjects=" + subjects.join(",")
+
+
+                var xhr = createCORSRequest('GET', urlReq);
+                if (!xhr) {
+                    throw new Error('CORS not supported');
+                }
+
+                xhr.onload = function() {
+                    var responseText = xhr.responseText;
+                    if(responseText === "true"){
+                        location.replace("lectures.html?user=" + user)
+                    }else if (responseText === "exists"){
+                        alert("lecture with this name allready exists !")
+                    }
+                };
+                xhr.send();
+            }
+        });
+
+
+    </script>
+
+</head>
+<body>
+
+
+    Lesson name:<br>
+    <input type="e" name="name" value="Lesson Name" id="lesson_name">
+    <br>
+    Course:<br>
+    <select id="course_select">
+        <option value="math">Math</option>
+        <option value="history">History</option>
+        <option value="film">Film</option>
+        <option  value="other">Other</option>
+    </select>
+    <br>
+    <p>Date: <input type="text" id="datepicker" ></p>
+    <br>
+    Select a time:
+    <input type="time" id="hours_time" name="usr_time">
+    <br>
+    Select length of lesson :
+    <input type="number" name="quantity" id="length_lesson" min="1" max="6">
+    <br><br>
+    Subjects :
+    <div class="input_fields_wrap">
+        <button class="add_field_button">Add More Subjects</button>
+        <div><input type="text"  name="mytext[]"></div>
+    </div>
+    <br>
+    <br>
+
+    <input type="submit" value="Submit" onclick="addLectureFunc()">
+
+<br>
+
+
+
+</body>
+</html>

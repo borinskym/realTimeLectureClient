@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lecture live !</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+    <script>
+
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+
+
+
+        updateChart = function (chart, lecture) {
+
+            console.log("updating chart...")
+
+            urlRequest = "http://10.100.102.4:3000/getLectureData?lecture=" + lecture
+
+            var xhr = createCORSRequest('GET', urlRequest);
+            if (!xhr) {
+                throw new Error('CORS not supported');
+            }
+
+            xhr.onload = function() {
+                var responseText = xhr.responseText;
+
+                jsonObj = JSON.parse(responseText)
+
+                var afkVotes = jsonObj['afk']
+
+                var dontGetItVote = jsonObj['dgi']
+
+                var keepingUpVotes = jsonObj['ku']
+
+                var thisIsEasyVotes = jsonObj['tie']
+
+                //removing the part 'waiting for students...
+                if(afkVotes + dontGetItVote + keepingUpVotes + thisIsEasyVotes > 0){
+
+                    chart.options.title.text = "Students status"
+
+                }else {
+                    if(chart.options.title.text.endsWith("...")){
+                        chart.options.title.text = "waiting for students.."
+                    }else{
+                        chart.options.title.text = "waiting for students..."
+                    }
+                }
+
+                chart.options.data[0].dataPoints[0]["y"] = afkVotes
+
+                chart.options.data[0].dataPoints[1]["y"] = dontGetItVote
+
+                chart.options.data[0].dataPoints[2]["y"] = keepingUpVotes
+
+                chart.options.data[0].dataPoints[3]["y"] = thisIsEasyVotes
+
+                chart.render()
+
+            }
+
+            xhr.send()
+
+        }
+
+
+        $(document).ready(function() {
+
+            var lecture = getParameterByName("lecture", window.location.href)
+
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title:{
+                        text: "waiting for students...",
+                        fontFamily: "arial black"
+                    },
+                    animationEnabled: true,
+                    legend: {
+                        verticalAlign: "bottom",
+                        horizontalAlign: "center"
+                    },
+                    theme: "theme1",
+                    data: [
+                        {
+                            type: "pie",
+                            indexLabelFontFamily: "Garamond",
+                            indexLabelFontSize: 20,
+                            indexLabelFontWeight: "bold",
+                            startAngle:0,
+                            indexLabelFontColor: "MistyRose",
+                            indexLabelLineColor: "darkgrey",
+                            indexLabelPlacement: "inside",
+                            toolTipContent: "{name}: {y} students",
+                            showInLegend: true,
+                            indexLabel: "#percent%",
+                            dataPoints: [
+                                {  y: 0, name: "AFK", legendMarkerType: "triangle"},
+                                {  y: 0, name: "Dont get it", legendMarkerType: "square"},
+                                {  y: 0, name: "Keeping up", legendMarkerType: "cross"},
+                                {  y: 0, name: "this is easy", legendMarkerType: "circle"}
+                            ]
+                        }
+                    ]
+                });
+            chart.render();
+
+            setInterval(function () {
+                updateChart(chart, lecture)
+            }, 2000)
+            }
+
+        );
+
+
+
+    </script>
+
+</head>
+<body>
+
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+</body>
+</html>
