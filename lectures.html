@@ -58,9 +58,11 @@
 
         $(document).ready(function() {
 
+            var serverIp = "10.100.102.4"
+
             var user = getParameterByName("user", window.location.href)
 
-            urlRequest = "http://10.100.102.4:3000/getLectures?user=" + user
+            urlRequest = "http://" + serverIp + ":3000/getLectures?user=" + user
             var xhr = createCORSRequest('GET', urlRequest);
             if (!xhr) {
                 throw new Error('CORS not supported');
@@ -110,7 +112,7 @@
 
                     var lectureName = data[0]
 
-                    var url = "http://10.100.102.4:3000/startLecture?lecture=" + lectureName
+                    var url = "http://" + serverIp + ":3000/startLecture?lecture=" + lectureName
 
                     var xhr = createCORSRequest('GET', url);
                     if (!xhr) {

@@ -50,6 +50,8 @@
             var add_button      = $(".add_field_button"); //Add button ID
             var user = getParameterByName("user", window.location.href)
 
+            var serverIp = "10.100.102.4"
+
             var x = 1; //initlal text box count
 
             $(add_button).click(function(e){ //on add input button click
@@ -100,7 +102,7 @@
                     })
                 });
 
-                urlReq = "http://192.168.1.5:3000/addLecture?" +
+                urlReq = "http://" + serverIp + ":3000/addLecture?" +
                             "user=" + user +
                             "&name=" + lessonName +
                             "&course=" + course +

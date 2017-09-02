@@ -41,11 +41,11 @@
 
 
 
-        updateChart = function (chart, lecture) {
+        updateChart = function (chart, lecture, serverIP) {
 
             console.log("updating chart...")
 
-            urlRequest = "http://10.100.102.4:3000/getLectureData?lecture=" + lecture
+            urlRequest = "http://" + serverIP + ":3000/getLectureData?lecture=" + lecture
 
             var xhr = createCORSRequest('GET', urlRequest);
             if (!xhr) {
@@ -97,6 +97,8 @@
 
         $(document).ready(function() {
 
+            var serverIp = "10.100.102.4"
+
             var lecture = getParameterByName("lecture", window.location.href)
 
             var chart = new CanvasJS.Chart("chartContainer",
@@ -136,7 +138,7 @@
             chart.render();
 
             setInterval(function () {
-                updateChart(chart, lecture)
+                updateChart(chart, lecture, serverIp)
             }, 2000)
             }
 
