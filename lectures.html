@@ -58,7 +58,7 @@
 
         $(document).ready(function() {
 
-            var serverIp = "10.100.102.4"
+            var serverIp = "192.168.1.5"
 
             var user = getParameterByName("user", window.location.href)
 
@@ -123,8 +123,9 @@
                         var responseText = xhr.responseText;
                         if(responseText === "ok"){
 
-                            MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
+                            //MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
 
+                            window.open("lectureLive.html?lecture=" + lectureName)
                         }else{
                             alert("could not open new lecture : " + responseText)
                         }

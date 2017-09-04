@@ -37,7 +37,7 @@
             xhr = new XDomainRequest();
             xhr.open(method, url);
         } else {
-            // Otherwise, CORS is not supported by the browser.
+            // Oth79.177.106.151erwise, CORS is not supported by the browser.
             xhr = null;
 
         }
@@ -51,7 +51,7 @@
 
         password = document.getElementById("password").value
 
-        urlRequest = "http://10.100.102.4:3000/verify?email=" + email + "&password=" +password
+        urlRequest = "http://192.168.1.5:3000/verify?email=" + email + "&password=" +password
         var xhr = createCORSRequest('GET', urlRequest);
         if (!xhr) {
             throw new Error('CORS not supported');

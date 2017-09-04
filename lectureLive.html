@@ -55,6 +55,24 @@
             xhr.onload = function() {
                 var responseText = xhr.responseText;
 
+                if(responseText === "lectureNotExist"){
+                    chart.options.title.text = "lecture ended"
+
+                    chart.options.data[0].dataPoints[0]["y"] = 0
+
+                    chart.options.data[0].dataPoints[1]["y"] = 0
+
+                    chart.options.data[0].dataPoints[2]["y"] = 0
+
+                    chart.options.data[0].dataPoints[3]["y"] = 0
+
+                    chart.render()
+
+                    return;
+
+                }
+
+
                 jsonObj = JSON.parse(responseText)
 
                 var afkVotes = jsonObj['afk']
@@ -97,7 +115,7 @@
 
         $(document).ready(function() {
 
-            var serverIp = "10.100.102.4"
+            var serverIp = "192.168.1.5"
 
             var lecture = getParameterByName("lecture", window.location.href)
 
@@ -140,9 +158,36 @@
             setInterval(function () {
                 updateChart(chart, lecture, serverIp)
             }, 2000)
+
+
+            $("button").click(function () {
+
+                urlRequest = "http://" + serverIp + ":3000/endLecture?lecture=" + lecture
+
+                var xhr = createCORSRequest('GET', urlRequest);
+                if (!xhr) {
+                    throw new Error('CORS not supported');
+                }
+
+                xhr.onload = function() {
+
+                    var responseText = xhr.responseText;
+                    if (responseText === "ok") {
+                        location.replace("lectureStatistic.html?lecture=" + lecture)
+                    }else{
+                        alert(responseText)
+                    }
+                }
+
+
+                xhr.send()
+                })
+
             }
 
         );
+
+
 
 
 
@@ -152,6 +197,8 @@
 <body>
 
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+<button id="endLecture" >end lecture</button>
 
 </body>
 </html>

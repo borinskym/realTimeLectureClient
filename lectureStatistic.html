@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lecture statistic</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+    <script>
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+
+        $(document).ready(function() {
+
+            var serverIp = "192.168.1.5"
+
+            var lecture = getParameterByName("lecture", window.location.href)
+
+
+            urlRequest = "http://" + serverIp + ":3000/getLectureStatisticFromRedis?lecture=" + lecture
+
+            var xhr = createCORSRequest('GET', urlRequest);
+            if (!xhr) {
+                throw new Error('CORS not supported');
+            }
+
+            xhr.onload = function() {
+                var responseText = xhr.responseText;
+
+                jsonObj = JSON.parse(responseText)
+
+                var startingTime = jsonObj['startingTime']
+
+                var data = jsonObj['data']
+
+                dataPointsAFK = []
+                dataPointsDGI = []
+                dataPointsKUP = []
+                dataPointsTIE = []
+
+                var startingDate = new Date(parseInt(startingTime));
+                var startingDateEntry = {x: startingDate, y: 0}
+                dataPointsAFK.push(startingDateEntry)
+                dataPointsDGI.push(startingDateEntry)
+                dataPointsKUP.push(startingDateEntry)
+                dataPointsTIE.push(startingDateEntry)
+
+                for(key in data){
+
+                    var date = new Date(parseInt(key));
+
+                    dataPointsAFK.push({x: date, y: parseInt(data[key]['_afk'])})
+                    dataPointsDGI.push({x: date, y: parseInt(data[key]['_dgi'])})
+                    dataPointsKUP.push({x: date, y: parseInt(data[key]['_kup'])})
+                    dataPointsTIE.push({x: date, y: parseInt(data[key]['_tie'])})
+                }
+
+                var chartAFK = new CanvasJS.Chart("chartContainerAFK",
+                    {
+                        title:{
+                            text: "out of focus votes :"
+                        },
+
+                        data: [
+                            {
+                                type: "line",
+                                dataPoints: dataPointsAFK
+                            }
+                        ]
+                    });
+
+                var chartDGI = new CanvasJS.Chart("chartContainerDGI",
+                    {
+
+                        title:{
+                            text: "dont get it votes :"
+                        },
+                        data: [
+                            {
+                                type: "line",
+                                dataPoints: dataPointsDGI
+                            }
+                        ]
+                    });
+
+                var chartKUP = new CanvasJS.Chart("chartContainerKUP",
+                    {
+
+                        title:{
+                            text: "keeping up votes :"
+                        },
+                        data: [
+                            {
+                                type: "line",
+                                dataPoints: dataPointsKUP
+                            }
+                        ]
+                    });
+
+                var chartTIE = new CanvasJS.Chart("chartContainerTIE",
+                    {
+
+                        title:{
+                            text: "this is easy votes votes :"
+                        },
+                        data: [
+                            {
+                                type: "line",
+                                dataPoints: dataPointsTIE
+                            }
+                        ]
+                    });
+
+
+
+                var chartTogheter = new CanvasJS.Chart("chartAll",
+                    {
+
+                        title:{
+                            text: "all togheter :"
+                        },
+                        data: [
+                            {
+                                type: "line",
+                                color: "#F08080",
+                                dataPoints: dataPointsAFK
+                            },
+                            {
+                                type: "line",
+                                color: "#20B2AA",
+                                dataPoints: dataPointsDGI
+                            },
+                            {
+                                type: "line",
+                                color: "#d726ce",
+                                dataPoints: dataPointsKUP
+                            },
+                            {
+                                type: "line",
+                                color: "#8fb671",
+                                dataPoints: dataPointsTIE
+                            }
+                        ]
+                    });
+
+                chartAFK.render();
+
+                chartDGI.render();
+
+                chartKUP.render();
+
+                chartTIE.render();
+
+                chartTogheter.render();
+
+
+            }
+
+            xhr.send()
+        })
+    </script>
+</head>
+<body>
+
+
+<div id="chartContainerAFK" style="height: 400px; width: 100%;">
+</div>
+
+
+<div id="chartContainerDGI" style="height: 400px; width: 100%;">
+</div>
+
+<div id="chartContainerKUP" style="height: 400px; width: 100%;">
+</div>
+
+
+<div id="chartContainerTIE" style="height: 400px; width: 100%;">
+</div>
+
+
+<div id="chartAll" style="height: 400px; width: 100%;">
+</div>
+
+
+
+
+</body>
+</html>
