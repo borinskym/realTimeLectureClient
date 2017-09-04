@@ -88,7 +88,6 @@
                         title:{
                             text: "out of focus votes :"
                         },
-
                         data: [
                             {
                                 type: "line",
@@ -150,22 +149,34 @@
                         data: [
                             {
                                 type: "line",
+                                name: "AFK",
+                                markerType: "square",
+                                showInLegend: true,
                                 color: "#F08080",
                                 dataPoints: dataPointsAFK
                             },
                             {
                                 type: "line",
+                                name: "DGI",
+                                markerType: "circle",
+                                showInLegend: true,
                                 color: "#20B2AA",
                                 dataPoints: dataPointsDGI
                             },
                             {
                                 type: "line",
+                                name: "KUP",
+                                markerType: "triangle",
+                                showInLegend: true,
                                 color: "#d726ce",
                                 dataPoints: dataPointsKUP
                             },
                             {
                                 type: "line",
+                                name: "TIE",
+                                markerType: "square",
                                 color: "#8fb671",
+                                showInLegend: true,
                                 dataPoints: dataPointsTIE
                             }
                         ]
