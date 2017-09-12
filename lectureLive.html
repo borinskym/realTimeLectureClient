@@ -9,6 +9,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
     <script>
 
+        var subjectsString = getParameterByName("subjects", window.location.href);
+        var subjectList = subjectsString.split(',')
+        var currentSubject = 0;
+
+        
         function createCORSRequest(method, url) {
             var xhr = new XMLHttpRequest();
             if ("withCredentials" in xhr) {
@@ -37,9 +42,6 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
-
-
-
 
         updateChart = function (chart, lecture, serverIP) {
 
@@ -159,10 +161,10 @@
                 updateChart(chart, lecture, serverIp)
             }, 2000)
 
-            }
+        }
 
-        );
- function endLectureFunc(){
+    );
+            function endLectureFunc(){
 
                 var lecture = getParameterByName("lecture", window.location.href);
 
@@ -187,6 +189,54 @@
                 xhr.send()
                 }
 
+            function nextSubjectFunc(){
+
+                currentSubject++;
+                var lecture = getParameterByName("lecture", window.location.href);
+
+                urlRequest = "http://" + "localhost" + ":3000/nextSubject?lecture=" + lecture + "&subject=" + subjectList[currentSubject]; 
+
+                var xhr = createCORSRequest('GET', urlRequest);
+                if (!xhr) {
+                    throw new Error('CORS not supported');
+                }
+
+                xhr.onload = function() {
+
+                    var responseText = xhr.responseText;
+                    if (responseText === "ok") {
+                        alert("subject changed")
+
+                    }else{
+                        alert(responseText)
+                    }
+                }
+
+                xhr.send()
+                }
+
+            function currentSubjectFunc(){
+
+                currentSubject++;
+                var lecture = getParameterByName("lecture", window.location.href);
+
+                urlRequest = "http://" + "localhost" + ":3000/currentSubject?lecture=" + lecture; 
+
+                var xhr = createCORSRequest('GET', urlRequest);
+                if (!xhr) {
+                    throw new Error('CORS not supported');
+                }
+
+                xhr.onload = function() {
+
+                    var responseText = xhr.responseText;
+                        alert(responseText)
+                    
+                }
+
+                xhr.send()
+                }
+
     </script>
 
 </head>
@@ -194,7 +244,8 @@
 
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
 
-<button id="nextSubject" onclick="" >next subject</button>
+<button id="nextSubject" onclick="nextSubjectFunc()" >next subject</button>
+<button id="currentSubject" onclick="currentSubjectFunc()" >current subject</button>
 
 <button id="endLecture" onclick="endLectureFunc()" > end lecture</button>
 
