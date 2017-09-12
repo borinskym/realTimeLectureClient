@@ -159,10 +159,14 @@
                 updateChart(chart, lecture, serverIp)
             }, 2000)
 
+            }
 
-            $("button").click(function () {
+        );
+ function endLectureFunc(){
 
-                urlRequest = "http://" + serverIp + ":3000/endLecture?lecture=" + lecture
+                var lecture = getParameterByName("lecture", window.location.href);
+
+                urlRequest = "http://" + "localhost" + ":3000/endLecture?lecture=" + lecture; 
 
                 var xhr = createCORSRequest('GET', urlRequest);
                 if (!xhr) {
@@ -181,15 +185,7 @@
 
 
                 xhr.send()
-                })
-
-            }
-
-        );
-
-
-
-
+                }
 
     </script>
 
@@ -198,7 +194,9 @@
 
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
 
-<button id="endLecture" >end lecture</button>
+<button id="nextSubject" onclick="" >next subject</button>
+
+<button id="endLecture" onclick="endLectureFunc()" > end lecture</button>
 
 </body>
 </html>

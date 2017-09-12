@@ -51,7 +51,7 @@
 
         password = document.getElementById("password").value
 
-        urlRequest = "http://192.168.1.5:3000/verify?email=" + email + "&password=" +password
+        urlRequest = "http://localhost:3000/verify?email=" + email + "&password=" +password
         var xhr = createCORSRequest('GET', urlRequest);
         if (!xhr) {
             throw new Error('CORS not supported');
