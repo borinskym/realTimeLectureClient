@@ -110,9 +110,11 @@
 
                     var data = table.row( $(b).parents('tr') ).data();
 
-                    var lectureName = data[0]
+                    var lectureName = data[0];
 
-                    var url = "http://" + serverIp + ":3000/startLecture?lecture=" + lectureName
+                    var subjectsList = data[2].split(',');
+
+                    var url = "http://" + serverIp + ":3000/startLecture?lecture=" + lectureName + "&subject=" + subjectsList[0];
 
                     var xhr = createCORSRequest('GET', url);
                     if (!xhr) {
@@ -125,20 +127,44 @@
 
                             //MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
 
-                            window.open("lectureLive.html?lecture=" + lectureName)
+                            window.open("lectureLive.html?lecture=" + lectureName + "&subjects=" + data[2]);
                         }else{
-                            alert("could not open new lecture : " + responseText)
+                            alert("could not open new lecture : " + responseText);
+                        }
+                    }
+
+                    xhr.send();
+                }
+
+                deleteLesson = function (b) {
+                    var data = table.row( $(b).parents('tr') ).data();
+
+                    var lectureName = data[0];
+
+                    var url = "http://" + serverIp + ":3000/deleteLecture?lecture=" + lectureName;
+
+                    var xhr = createCORSRequest('GET', url);
+                    if (!xhr) {
+                        throw new Error('CORS not supported');
+                    }
+
+                    xhr.onload = function() {
+                        var responseText = xhr.responseText;
+                        if(responseText === "ok"){
+
+                            //MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
+
+                        var user = getParameterByName("user", window.location.href);
+                        location.replace("lectures.html?user=" + user);
+
+                        }else{
+                            alert("could not open new lecture : " + responseText);
                         }
 
 
                     }
 
-                    xhr.send()
-                }
-
-                deleteLesson = function (b) {
-                    var data = table.row( $(b).parents('tr') ).data();
-                    alert( data[0] +" is deleting" );
+                    xhr.send();
                 }
 
 
