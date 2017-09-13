@@ -37,6 +37,23 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
+        function addEndingTitle(dataArr, lastSubject){
+
+                var lastDataPoint =  dataArr[dataArr.length - 1];
+
+                lastDataPoint["markerColor"] = "red";
+
+                lastDataPoint["markerType"] = "triangle";
+
+
+                var lastSubjectPoint = dataArr[dataArr.length - 10];
+
+                lastSubjectPoint["indexLabel"] = lastSubject;
+
+                lastSubjectPoint["indexLabelFontSize"] = 36;
+
+        }
+
 
         $(document).ready(function() {
 
@@ -61,10 +78,16 @@
 
                 var data = jsonObj['data']
 
+                var subjects = jsonObj['subjects']
+
                 dataPointsAFK = []
                 dataPointsDGI = []
                 dataPointsKUP = []
                 dataPointsTIE = []
+
+                dataPointsKUPNoSub = []
+                dataPointsTIENoSub = []
+
 
                 var startingDate = new Date(parseInt(startingTime));
                 var startingDateEntry = {x: startingDate, y: 0}
@@ -81,10 +104,57 @@
                     dataPointsDGI.push({x: date, y: parseInt(data[key]['_dgi'])})
                     dataPointsKUP.push({x: date, y: parseInt(data[key]['_kup'])})
                     dataPointsTIE.push({x: date, y: parseInt(data[key]['_tie'])})
+
+                    dataPointsKUPNoSub.push({x: date, y: parseInt(data[key]['_kup'])})
+                    dataPointsTIENoSub.push({x: date, y: parseInt(data[key]['_tie'])})
                 }
+
+                for(key in subjects){
+
+                    var date = new Date(parseInt(key));
+
+                    dataPointsAFK.push({x: date, y: parseInt(subjects[key]['_afk']), indexLabel: subjects[key]['name'], markerColor: "red", markerType: "triangle" ,indexLabelFontSize: 36})
+                    dataPointsDGI.push({x: date, y: parseInt(subjects[key]['_dgi']), indexLabel: subjects[key]['name'], markerColor: "red", markerType: "triangle" ,indexLabelFontSize: 36})
+                    dataPointsKUP.push({x: date, y: parseInt(subjects[key]['_kup']), indexLabel: subjects[key]['name'], markerColor: "red", markerType: "triangle" ,indexLabelFontSize: 36})
+                    dataPointsTIE.push({x: date, y: parseInt(subjects[key]['_tie']), indexLabel: subjects[key]['name'], markerColor: "red", markerType: "triangle" ,indexLabelFontSize: 36})
+                    dataPointsKUPNoSub.push({x: date, y: parseInt(subjects[key]['_kup']), markerColor: "red", markerType: "triangle"})
+                    dataPointsTIENoSub.push({x: date, y: parseInt(subjects[key]['_tie']), markerColor: "red", markerType: "triangle"})
+                    
+                }
+
+                var sortingFunction = function(point1, point2){
+
+                  return  point1["x"].getTime() - point2["x"].getTime()
+
+                }
+
+
+                dataPointsAFK = dataPointsAFK.sort(sortingFunction)
+
+                dataPointsDGI= dataPointsDGI.sort(sortingFunction)
+                
+                dataPointsKUP = dataPointsKUP.sort(sortingFunction)
+
+                dataPointsTIE = dataPointsTIE.sort(sortingFunction)
+
+                dataPointsTIENoSub = dataPointsTIENoSub.sort(sortingFunction)
+                dataPointsKUPNoSub = dataPointsKUPNoSub.sort(sortingFunction)
+
+
+
+                var finalSubject = getParameterByName("lastSubject", window.location.href);
+
+                addEndingTitle(dataPointsAFK, finalSubject);
+                addEndingTitle(dataPointsDGI, finalSubject);
+                addEndingTitle(dataPointsKUP, finalSubject);
+                addEndingTitle(dataPointsTIE, finalSubject);
+
+
 
                 var chartAFK = new CanvasJS.Chart("chartContainerAFK",
                     {
+                animationEnabled: true,
+
                         title:{
                             text: "out of focus votes :"
                         },
@@ -98,6 +168,7 @@
 
                 var chartDGI = new CanvasJS.Chart("chartContainerDGI",
                     {
+                animationEnabled: true,
 
                         title:{
                             text: "dont get it votes :"
@@ -112,6 +183,7 @@
 
                 var chartKUP = new CanvasJS.Chart("chartContainerKUP",
                     {
+                animationEnabled: true,
 
                         title:{
                             text: "keeping up votes :"
@@ -126,6 +198,7 @@
 
                 var chartTIE = new CanvasJS.Chart("chartContainerTIE",
                     {
+                animationEnabled: true,
 
                         title:{
                             text: "this is easy votes votes :"
@@ -142,42 +215,33 @@
 
                 var chartTogheter = new CanvasJS.Chart("chartAll",
                     {
+                animationEnabled: true,
 
                         title:{
                             text: "all togheter :"
-                        },
+                        }, 
+                        toolTip: {
+                    shared: true
+                },
                         data: [
-                            {
-                                type: "line",
-                                name: "AFK",
-                                markerType: "square",
-                                showInLegend: true,
-                                color: "#F08080",
-                                dataPoints: dataPointsAFK
-                            },
+
                             {
                                 type: "line",
                                 name: "DGI",
-                                markerType: "circle",
-                                showInLegend: true,
                                 color: "#20B2AA",
                                 dataPoints: dataPointsDGI
                             },
                             {
                                 type: "line",
                                 name: "KUP",
-                                markerType: "triangle",
-                                showInLegend: true,
                                 color: "#d726ce",
-                                dataPoints: dataPointsKUP
+                                dataPoints: dataPointsKUPNoSub
                             },
                             {
                                 type: "line",
                                 name: "TIE",
-                                markerType: "square",
                                 color: "#8fb671",
-                                showInLegend: true,
-                                dataPoints: dataPointsTIE
+                                dataPoints: dataPointsTIENoSub
                             }
                         ]
                     });
@@ -202,23 +266,17 @@
 <body>
 
 
-<div id="chartContainerAFK" style="height: 400px; width: 100%;">
-</div>
+<div id="chartContainerAFK" style="width: 49%; height: 250px;display: inline-block;"></div>
 
 
-<div id="chartContainerDGI" style="height: 400px; width: 100%;">
-</div>
+<div id="chartContainerDGI" style="width: 49%; height: 250px;display: inline-block;"></div>
 
-<div id="chartContainerKUP" style="height: 400px; width: 100%;">
-</div>
+<div id="chartContainerKUP" style="width: 49%; height: 250px;display: inline-block;"></div>
 
-
-<div id="chartContainerTIE" style="height: 400px; width: 100%;">
-</div>
+<div id="chartContainerTIE" style="width: 49%; height: 250px;display: inline-block;"></div>
 
 
-<div id="chartAll" style="height: 400px; width: 100%;">
-</div>
+<div id="chartAll" style="height: 400px; width: 100%;"></div>
 
 
 
