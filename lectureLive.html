@@ -179,7 +179,7 @@
 
                     var responseText = xhr.responseText;
                     if (responseText === "ok") {
-                        location.replace("lectureStatistic.html?lecture=" + lecture)
+                        location.replace("lectureStatistic.html?lecture=" + lecture + "&lastSubject=" + subjectList[subjectList.length - 1])
                     }else{
                         alert(responseText)
                     }
@@ -191,10 +191,10 @@
 
             function nextSubjectFunc(){
 
-                currentSubject++;
+               
                 var lecture = getParameterByName("lecture", window.location.href);
 
-                urlRequest = "http://" + "localhost" + ":3000/nextSubject?lecture=" + lecture + "&subject=" + subjectList[currentSubject]; 
+                urlRequest = "http://" + "localhost" + ":3000/nextSubject?lecture=" + lecture + "&subject=" + subjectList[currentSubject] + "&nextSubject=" + subjectList[currentSubject + 1] ; 
 
                 var xhr = createCORSRequest('GET', urlRequest);
                 if (!xhr) {
@@ -210,6 +210,7 @@
                     }else{
                         alert(responseText)
                     }
+                     currentSubject++;
                 }
 
                 xhr.send()
