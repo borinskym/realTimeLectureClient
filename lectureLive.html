@@ -117,7 +117,7 @@
 
         $(document).ready(function() {
 
-            var serverIp = "ec2-54-197-194-59.compute-1.amazonaws.com"
+            var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
 
             var lecture = getParameterByName("lecture", window.location.href)
 
@@ -168,7 +168,7 @@
 
                 var lecture = getParameterByName("lecture", window.location.href);
 
-                urlRequest = "http://" + "ec2-54-197-194-59.compute-1.amazonaws.com" + ":3000/endLecture?lecture=" + lecture;
+                urlRequest = "http://" + "ec2-54-197-26-147.compute-1.amazonaws.com" + ":3000/endLecture?lecture=" + lecture;
 
                 var xhr = createCORSRequest('GET', urlRequest);
                 if (!xhr) {
