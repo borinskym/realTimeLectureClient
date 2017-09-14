@@ -190,7 +190,7 @@
                 }
 
             function nextSubjectFunc(){
-                
+
                 var lecture = getParameterByName("lecture", window.location.href);
 
                 urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/nextSubject?lecture=" + lecture + "&subject=" + subjectList[currentSubject] + "&nextSubject=" + subjectList[currentSubject + 1] ;
@@ -219,7 +219,7 @@
 
                 var lecture = getParameterByName("lecture", window.location.href);
 
-                urlRequest = "http://" + "localhost" + ":3000/currentSubject?lecture=" + lecture; 
+                urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/currentSubject?lecture=" + lecture;
 
                 var xhr = createCORSRequest('GET', urlRequest);
                 if (!xhr) {
