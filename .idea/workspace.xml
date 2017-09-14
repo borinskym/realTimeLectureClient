@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="26fb0fd7-4fc7-4346-ba15-ca8517b9708a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lectureLive.html" afterPath="$PROJECT_DIR$/lectureLive.html" />
-    </list>
+    <list default="true" id="26fb0fd7-4fc7-4346-ba15-ca8517b9708a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -107,8 +104,8 @@
       <file leaf-file-name="lectureLive.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lectureLive.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="196" column="33" lean-forward="true" selection-start-line="196" selection-start-column="33" selection-end-line="196" selection-end-column="33" />
+            <state relative-caret-position="264">
+              <caret line="192" column="16" lean-forward="false" selection-start-line="192" selection-start-column="16" selection-end-line="192" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -245,12 +242,12 @@
       <workItem from="1504436476633" duration="4681000" />
       <workItem from="1504526086502" duration="8345000" />
       <workItem from="1505298746951" duration="67000" />
-      <workItem from="1505380845272" duration="4584000" />
+      <workItem from="1505380845272" duration="4687000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81200000" />
+    <option name="totallyTimeSpent" value="81303000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1440" height="900" extended-state="6" />
@@ -605,8 +602,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lectureLive.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="196" column="33" lean-forward="true" selection-start-line="196" selection-start-column="33" selection-end-line="196" selection-end-column="33" />
+        <state relative-caret-position="264">
+          <caret line="192" column="16" lean-forward="false" selection-start-line="192" selection-start-column="16" selection-end-line="192" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
