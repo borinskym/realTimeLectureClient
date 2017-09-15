@@ -9,8 +9,18 @@
 <header> <img src="logo.png" id="logoPic" </header>
 <h1>choose your role</h1>
 
-    <input id="signUpButton" type="button" value="LECTURER" onclick = window.location.signup.html)>
-    <input id="logInButton" type="button" value="STUDENT" onclick = window.location.enterCode.html)>
 
+    <input id="signUpButton" type="button" value="LECTURER" onclick = goToLecturerSide()>
+    <input id="logInButton" type="button" value="STUDENT" onclick = goToStudentSide()>
 </body>
+<script type="text/javascript">
+    function goToStudentSide(){
+        window.location.href = 'enterCode.html';
+    }
+
+    function goToLecturerSide(){
+        window.location.href = 'wellcomeBack.html';
+    }
+
+</script>
 </html>
