@@ -9,6 +9,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
 
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
         function getParameterByName(name, url) {
             name = name.replace(/[\[\]]/g, "\\$&");
             var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -50,7 +52,10 @@
             var add_button      = $(".add_field_button"); //Add button ID
             var user = getParameterByName("user", window.location.href)
 
-            var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
+
+
+            //var serverIp = "localhost"
 
             var x = 1; //initlal text box count
 

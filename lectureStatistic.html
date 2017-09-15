@@ -8,6 +8,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
     <script>
+
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com";
+
+        //var serverIp = "localhost";
+
         function createCORSRequest(method, url) {
             var xhr = new XMLHttpRequest();
             if ("withCredentials" in xhr) {
@@ -56,8 +61,6 @@
 
 
         $(document).ready(function() {
-
-            var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com";
 
             var lecture = getParameterByName("lecture", window.location.href)
 

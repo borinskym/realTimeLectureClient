@@ -7,10 +7,10 @@
 
 		<script>
 
-            //var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+            var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
 
 
-			var serverIp = "localhost"
+			//var serverIp = "localhost"
             function createCORSRequest(method, url) {
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -62,10 +62,9 @@
 
 	function goFunc(){
 
-		var code = document.getElementById("GoButtonID").value
+		var code = document.getElementById("codeTextBox").value
 
         urlRequest = "http://" + serverIp + ":3000/getLectureByCode?code=" + code;
-
 
         var xhr = createCORSRequest('GET', urlRequest);
         if (!xhr) {
@@ -76,6 +75,8 @@
             var responseText = xhr.responseText;
 
             if(responseText === "fail"){
+
+                debugger;
                 alert("Wrong Code! try again")
             }else{
                 location.replace("liveLectureStudent.html?lecture=" + responseText)

@@ -10,6 +10,10 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
 
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
+
+        //var serverIp = "localhost"
 
         function createCORSRequest(method, url) {
             var xhr = new XMLHttpRequest();
@@ -59,7 +63,7 @@
 
         $(document).ready(function() {
 
-            var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
 
             var user = getParameterByName("user", window.location.href)
 
