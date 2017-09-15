@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26fb0fd7-4fc7-4346-ba15-ca8517b9708a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/liveLectureStudent.html" afterPath="$PROJECT_DIR$/liveLectureStudent.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -170,8 +169,8 @@
       <file leaf-file-name="liveLectureStudent.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/liveLectureStudent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="236" column="13" lean-forward="false" selection-start-line="236" selection-start-column="13" selection-end-line="236" selection-end-column="13" />
+            <state relative-caret-position="451">
+              <caret line="237" column="76" lean-forward="false" selection-start-line="237" selection-start-column="76" selection-end-line="237" selection-end-column="76" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#button#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -292,8 +291,8 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="2027" />
-    <option name="width" value="1430" />
-    <option name="height" value="675" />
+    <option name="width" value="1920" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -371,12 +370,12 @@
       <workItem from="1504526086502" duration="8345000" />
       <workItem from="1505298746951" duration="67000" />
       <workItem from="1505380845272" duration="5051000" />
-      <workItem from="1505504539808" duration="918000" />
+      <workItem from="1505504539808" duration="1122000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91539000" />
+    <option name="totallyTimeSpent" value="91743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2027" y="0" width="1920" height="1050" extended-state="6" />
@@ -520,6 +519,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3322">
           <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -637,6 +637,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3322">
           <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -801,6 +802,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3322">
           <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,8 +1009,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/liveLectureStudent.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="236" column="13" lean-forward="false" selection-start-line="236" selection-start-column="13" selection-end-line="236" selection-end-column="13" />
+        <state relative-caret-position="451">
+          <caret line="237" column="76" lean-forward="false" selection-start-line="237" selection-start-column="76" selection-end-line="237" selection-end-column="76" />
           <folding>
             <element signature="n#style#0;n#img#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#button#0;n#body#0;n#html#0;n#!!top" expanded="true" />
