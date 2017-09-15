@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title id="titleID"> lecture Name and subject </title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+	<header>
+			<img src="logo.png" width="50%" height="100%" align="middle" style="margin:0% 25%">
+	</header>
+
+	<p id="courseNameID" class="CourseName"> course name </p>
+	<p id="lectureNameID" class="LectureName"> lecture name </p>
+
+	<hr class="Line">
+
+	<p id="currentSubjectID" class="currentSubject"> current subject </p>
+
+	<button id="easyID" onclick="easyButtonFunc()">	<img id="easyPicID" src="easyPic.png" width="70vh" height="70vh" align="middle" style="margin:0%"></button>
+	<br>
+    
+	<button id="keepUpID" onclick="keepUpButtonFunc()"><img id="keepUpPicID" src="keepUpPic.png" width="70vh" height="70vh" align="middle" style="margin:0%"></button>
+	<br>
+	
+	<button id="dontGetID" onclick="dontGetButtonFunc()"><img id="dontGetPicID" src="dontGetPic.png" width="70vh" height="70vh" align="middle" style="margin:0%" ></button>
+
+</body>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	
+	//TODO: get from server
+function getCourseName(){
+
+return "Math"
+}
+
+	//TODO: get from server
+function getLectureName(){
+
+return "Math1"
+}
+
+	//TODO: get from server
+function getCurrentSubject(){
+
+return "Math first subject"
+}
+
+
+function testFunc(){
+	document.getElementById("titleID").innerHTML = getCourseName();
+}
+
+function easyButtonFunc(){
+	currentVote = 3;
+
+	document.getElementById("easyPicID").style.display = "initial";
+	document.getElementById("easyID").disabled = true;
+
+	document.getElementById("keepUpPicID").style.display = "none";
+	document.getElementById("keepUpID").disabled = false;
+
+	document.getElementById("dontGetPicID").style.display = "none";
+	document.getElementById("dontGetID").disabled = false;
+
+	//alert(currentVote);
+
+//TODO: send currentVote to server
+
+}
+function keepUpButtonFunc(){
+	currentVote = 2;
+
+	document.getElementById("easyPicID").style.display = "none";
+	document.getElementById("easyID").disabled = false;
+
+	document.getElementById("keepUpPicID").style.display = "initial";
+	document.getElementById("keepUpID").disabled = true;
+
+	document.getElementById("dontGetPicID").style.display = "none";
+	document.getElementById("dontGetID").disabled = false;
+
+	//alert(currentVote);
+
+//TODO: send currentVote to server
+
+}
+
+function dontGetButtonFunc(){
+	currentVote = 1;
+
+	document.getElementById("easyPicID").style.display = "none";
+	document.getElementById("easyID").disabled = false;
+
+	document.getElementById("keepUpPicID").style.display = "none";
+	document.getElementById("keepUpID").disabled = false;
+
+	document.getElementById("dontGetPicID").style.display = "initial";
+	document.getElementById("dontGetID").disabled = true;
+
+	//alert(currentVote);
+	
+//TODO: send currentVote to server
+
+}
+
+
+document.getElementById("easyPicID").style.display = "none";
+document.getElementById("keepUpPicID").style.display = "none";
+document.getElementById("dontGetPicID").style.display = "none";
+
+
+var currentVote = 0; 
+
+//TODO: send currentVote to server
+
+
+
+//document.getElementById("easyPicID").style.display = "initial"; how to make it re-appear
+
+document.getElementById("titleID").innerHTML = getCourseName()+": "+ getLectureName();
+document.getElementById("courseNameID").innerHTML = getCourseName();
+document.getElementById("lectureNameID").innerHTML = getLectureName();
+document.getElementById("currentSubjectID").innerHTML = getCurrentSubject();
+
+
+</script>
+
+
+
+</html>

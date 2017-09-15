@@ -1,0 +1,108 @@
+header {
+  width: 100%;
+  height: 23vh;
+  border-radius: 0px;
+  background-color: #001c54;
+}
+body {
+  margin: 0px;
+}
+
+.CourseName {
+
+  font-family: Roboto;
+  font-size: 6vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #001c54;
+  margin-left: 40vw;
+  margin-top: 3vh;
+  margin-bottom: 0em;
+  margin-left: 0;
+  margin-right: 0;
+
+}
+.LectureName {
+  font-family: Roboto;
+  font-size: 3vh;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #666666;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  margin-left: 0;
+  margin-right: 0;
+
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.Line {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  width: 100%;
+  height: 2px;
+  border: solid 1px #dadada;
+}
+
+.currentSubject {
+  font-family: Roboto;
+  font-size: 5vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #666666;
+}
+#easyID {
+  background-size:81.1vw 6vh;
+  width: 81.1vw;
+  height: 6vh;
+  margin-left: 9.6vw;
+  margin-right: 9.3vw;
+  margin-top: 5.4vh;
+  background-image: url( 'thatsEasy.png' );  
+}
+#keepUpID {
+  background-size:81.1vw 6vh;
+  width: 81.1vw;
+  height: 6vh;
+  margin-left: 9.6vw;
+  margin-right: 9.3vw;
+  margin-top: 3vh;
+  background-image: url( 'imKeepingUp.png' );  
+}
+#dontGetID {
+  background-size:81.1vw 6vh;
+  width: 81.1vw;
+  height: 6vh;
+  margin-left: 9.6vw;
+  margin-right: 9.3vw;
+  margin-top: 3vh;
+  background-image: url( 'iDontGetIt.png' );  
+}
+#codeTextBox {
+	font-size: 4vh;
+	width: 66.6vw;
+	height: 5vh;
+	margin-left: 16.8vw;
+	margin-top: 5.2vh;
+	text-align: center;
+}
+#GoButtonID {
+	background-size:66.6vw 6vh;
+	width: 66.6vw;
+	height: 7vh;
+	margin-left: 16.8vw;
+	margin-top: 5.2vh;
+    background-image: url( 'goButton.png' );  
+
+}
+
+
