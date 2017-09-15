@@ -140,6 +140,7 @@
                     data: [
                         {
                             type: "pie",
+                            colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f'],
                             indexLabelFontFamily: "Garamond",
                             indexLabelFontSize: 20,
                             indexLabelFontWeight: "bold",
@@ -151,10 +152,10 @@
                             showInLegend: true,
                             indexLabel: "#percent%",
                             dataPoints: [
-                                {  y: 0, name: "AFK", legendMarkerType: "triangle"},
-                                {  y: 0, name: "Dont get it", legendMarkerType: "square"},
-                                {  y: 0, name: "Keeping up", legendMarkerType: "cross"},
-                                {  y: 0, name: "this is easy", legendMarkerType: "circle"}
+                                {  y: 0, name: "AFK", legendMarkerType: "triangle", color: "#F0F8FF"},
+                                {  y: 0, name: "Dont get it", legendMarkerType: "square", color: "#FF0000"},
+                                {  y: 0, name: "Keeping up", legendMarkerType: "cross", color: "#FFFF00"},
+                                {  y: 0, name: "this is easy", legendMarkerType: "circle", color: "#32CD32"}
                             ]
                         }
                     ]
@@ -280,6 +281,7 @@
 
 </head>
 <body>
+
 <header> <img src="logo.png" id="logoPic" </header>
 
 
@@ -287,7 +289,7 @@
 
 <button id="nextSubject" onclick="nextSubjectFunc()" >next subject</button>
 <button id="currentSubject" onclick="currentSubjectFunc()" >current subject</button>
-<button id="currentSubject" onclick="getCode()" >Code</button>
+<button id="codeButton" onclick="getCode()" >get Code</button>
 
 <button id="endLecture" onclick="endLectureFunc()" > end lecture</button>
 
