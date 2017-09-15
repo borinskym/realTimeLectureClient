@@ -6,7 +6,7 @@
 
 	<script>
 
-        var serverIp = "localhost"
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
 
 		var currentSubject
 
@@ -189,7 +189,7 @@ function dontGetButtonFunc(){
 }
 
 function initChioce(){
-
+    currentVote = 0;
     document.getElementById("easyPicID").style.display = "none";
     document.getElementById("keepUpPicID").style.display = "none";
     document.getElementById("dontGetPicID").style.display = "none";

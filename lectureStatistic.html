@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>lecture statistic</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
     <script>
 
-        var serverIp = "localhost";
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com";
 
         //var serverIp = "localhost";
 
@@ -164,6 +165,7 @@
                         },
                         data: [
                             {
+                                color: "#778899",
                                 type: "line",
                                 dataPoints: dataPointsAFK
                             }
@@ -179,6 +181,7 @@
                         },
                         data: [
                             {
+                                color: "#FF0000",
                                 type: "line",
                                 dataPoints: dataPointsDGI
                             }
@@ -194,6 +197,7 @@
                         },
                         data: [
                             {
+                                color: "#FFB900",
                                 type: "line",
                                 dataPoints: dataPointsKUP
                             }
@@ -209,6 +213,7 @@
                         },
                         data: [
                             {
+                                color: "#32CD32",
                                 type: "line",
                                 dataPoints: dataPointsTIE
                             }
@@ -232,19 +237,19 @@
                             {
                                 type: "line",
                                 name: "DGI",
-                                color: "#20B2AA",
+                                color: "#FF0000",
                                 dataPoints: dataPointsDGI
                             },
                             {
                                 type: "line",
                                 name: "KUP",
-                                color: "#d726ce",
+                                color: "#FFB900",
                                 dataPoints: dataPointsKUPNoSub
                             },
                             {
                                 type: "line",
                                 name: "TIE",
-                                color: "#8fb671",
+                                color: "#32CD32",
                                 dataPoints: dataPointsTIENoSub
                             }
                         ]
@@ -268,19 +273,20 @@
     </script>
 </head>
 <body>
+<header> <img src="logo.png" id="logoPic" </header>
 
 
-<div id="chartContainerAFK" style="width: 49%; height: 250px;display: inline-block;"></div>
+<div id="chartContainerAFK" style="width: 49%; height: 250px;display: inline-block; margin: 2vh 0vw 0vh 0vw;"></div>
 
 
-<div id="chartContainerDGI" style="width: 49%; height: 250px;display: inline-block;"></div>
+<div id="chartContainerDGI" style="width: 49%; height: 250px;display: inline-block; margin: 2vh 0vw 0vh 0vw;"></div>
 
 <div id="chartContainerKUP" style="width: 49%; height: 250px;display: inline-block;"></div>
 
 <div id="chartContainerTIE" style="width: 49%; height: 250px;display: inline-block;"></div>
 
 
-<div id="chartAll" style="height: 400px; width: 100%;"></div>
+<div id="chartAll" style="height: 300px; width: 100%;"></div>
 
 
 
