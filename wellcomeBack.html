@@ -57,9 +57,10 @@
 
         password = document.getElementById("password").value
 
-          urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/verify?email=" + email + "&password=" +password
+        //  urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/verify?email=" + email + "&password=" +password
 
-        //urlRequest = "http://localhost:3000/verify?email=" + email + "&password=" +password
+        urlRequest = "http://localhost:3000/verify?email=" + email + "&password=" +password
+        
         var xhr = createCORSRequest('GET', urlRequest);
         if (!xhr) {
             throw new Error('CORS not supported');
