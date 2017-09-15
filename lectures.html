@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>lectures</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -127,7 +128,7 @@
 
                             //MM_openBrWindow("lectureLive.html?lecture=" + lectureName, "liveLectures", 'scrollbars=yes,width=650,height=500')
 
-                            window.open("lectureLive.html?lecture=" + lectureName + "&subjects=" + data[2] );
+                           window.location.href = "lectureLive.html?lecture=" + lectureName + "&subjects=" + data[2];
                         }else{
                             alert("could not open new lecture : " + responseText);
                         }
@@ -190,9 +191,10 @@
 
 </head>
 <body>
-
-<h1>Your lectures :</h1>
-
+<header> <img src="logo.png" id="logoPic" </header>
+<br>
+<br>
+<br>
 <table id="table" class="display" width="100%"></table>
 
 

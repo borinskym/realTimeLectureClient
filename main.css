@@ -102,7 +102,19 @@ input[type=number]::-webkit-outer-spin-button {
 	margin-left: 16.8vw;
 	margin-top: 5.2vh;
     background-image: url( 'goButton.png' );  
-
 }
 
+#easyPicID {
+  width: 7vh;
+  height: 7vh;
+}
 
+#keepUpPicID {
+  width: 7vh;
+  height: 7vh;
+}
+
+#dontGetPicID {
+  width: 7vh;
+  height: 7vh;
+}

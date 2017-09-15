@@ -117,6 +117,8 @@
 
         $(document).ready(function() {
 
+            var codeOfLecture
+
             var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
 
             var lecture = getParameterByName("lecture", window.location.href)
@@ -161,9 +163,36 @@
                 updateChart(chart, lecture, serverIp)
             }, 2000)
 
+
+            var getCoreFunction =   function getCodeOfLecture(){
+
+                var lecture = getParameterByName("lecture", window.location.href);
+
+                urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/getCodeOfLecture?lecture=" + lecture;
+
+                var xhr = createCORSRequest('GET', urlRequest);
+                if (!xhr) {
+                    throw new Error('CORS not supported');
+                }
+
+                xhr.onload = function() {
+
+                    var responseText = xhr.responseText;
+
+                    codeOfLecture = parseInt(responseText)
+
+                }
+                xhr.send()
+            }
+
+
+            getCoreFunction()
+
         }
 
     );
+
+
             function endLectureFunc(){
 
                 var lecture = getParameterByName("lecture", window.location.href);
@@ -238,6 +267,9 @@
 
                 xhr.send()
                 }
+
+                //if return -1 some error has occured
+
 
     </script>
 

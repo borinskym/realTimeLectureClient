@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title >"Welcome back!</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<header> <img src="logo.png" id="logoPic" </header>
+<h1>welcome back !</h1>
+
+    
+    <input type="text" id="email" name="email" placeholder="eMail:">
+    <br>
+
+    <input type="text" id="password" name="password" placeholder="PassWord:">
+    <br><br>
+
+    <input id="signUpButton" type="button" value="SIGN UP" onclick = goToSignUp()>
+    <input id="logInButton" type="button" value="LOG IN" onclick = verifyUserFromDB()>
+
+
+
+</body>
+
+
+<script>
+
+    function goToSignUp(){
+        window.location.href = 'signup.html';
+    }
+
+    function createCORSRequest(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            xhr.open(method, url, true);
+
+        } else if (typeof XDomainRequest != "undefined") {
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+        } else {
+            // Oth79.177.106.151erwise, CORS is not supported by the browser.
+            xhr = null;
+
+        }
+        return xhr;
+    }
+
+
+    function verifyUserFromDB(){
+
+        email = document.getElementById("email").value
+
+        password = document.getElementById("password").value
+
+        urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/verify?email=" + email + "&password=" +password
+        var xhr = createCORSRequest('GET', urlRequest);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+
+        xhr.onload = function() {
+            var responseText = xhr.responseText;
+            if(responseText === "true"){
+                 window.location.href = "lectures.html?user=" + email;
+                //window.open("lectures.html?user=" + email)
+            }else{
+                alert("the email ad password are mismatched")
+            }
+        };
+
+        xhr.send();
+
+    }
+</script>
+</html>
