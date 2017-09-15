@@ -3,7 +3,45 @@
 <head>
 <title id="titleID"> lecture Name and subject </title>
   <link rel="stylesheet" type="text/css" href="main.css">
-</head>
+
+	<script>
+
+        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
+        //var serverIp = "localhost"
+
+		var lecture = getParameterByName("lecture", window.location.href)
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                // Check if the XMLHttpRequest object has a "withCredentials" property.
+                // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                xhr.open(method, url, true);
+
+            } else if (typeof XDomainRequest != "undefined") {
+                // Otherwise, check if XDomainRequest.
+                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                xhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                // Otherwise, CORS is not supported by the browser.
+                xhr = null;
+
+            }
+            return xhr;
+        }
+
+        function getParameterByName(name, url) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+</script>
+        </head>
 
 <body>
 	<header>
@@ -35,100 +73,145 @@
 
 <script type="text/javascript">
 	
-	//TODO: get from server
-function getCourseName(){
 
-return "Math"
+function getCourseName(func){
+    urlRequest = "http://" + serverIp + ":3000/getCourseOfLecture?lecture=" + lecture;
+
+
+    var xhr = createCORSRequest('GET', urlRequest);
+    if (!xhr) {
+        throw new Error('CORS not supported');
+    }
+
+    xhr.onload = function () {
+        var responseText = xhr.responseText;
+        func(responseText)
+    }
+
+    xhr.send()
 }
 
-	//TODO: get from server
-function getLectureName(){
+function getCurrentSubject(func){
+    urlRequest = "http://" + serverIp + ":3000/currentSubject?lecture=" + lecture;
 
-return "Math1"
-}
 
-	//TODO: get from server
-function getCurrentSubject(){
+    var xhr = createCORSRequest('GET', urlRequest);
+    if (!xhr) {
+        throw new Error('CORS not supported');
+    }
 
-return "Math first subject"
+    xhr.onload = function () {
+        var responseText = xhr.responseText;
+        func(responseText)
+    }
+
+    xhr.send()
 }
 
 
 function testFunc(){
-	document.getElementById("titleID").innerHTML = getCourseName();
+	getCourseName(function (res) {
+        document.getElementById("titleID").innerHTML = res;
+    });
 }
 
-function easyButtonFunc(){
-	currentVote = 3;
+    function sendVoteToServer(vote, func) {
+        urlRequest = "http://" + serverIp + ":3000/addVote?lecture=" + lecture + "&vote=" + String(vote)
 
-	document.getElementById("easyPicID").style.display = "initial";
-	document.getElementById("easyID").disabled = true;
+        if (!(currentVote === 0)) {
+            urlRequest = urlRequest + "&voteDown=" + String(currentVote)
+        }
 
-	document.getElementById("keepUpPicID").style.display = "none";
-	document.getElementById("keepUpID").disabled = false;
+        var xhr = createCORSRequest('GET', urlRequest);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
 
-	document.getElementById("dontGetPicID").style.display = "none";
-	document.getElementById("dontGetID").disabled = false;
+        xhr.onload = function () {
+            var responseText = xhr.responseText;
+			if(responseText === "ok"){
 
-	//alert(currentVote);
+                currentVote = vote;
 
-//TODO: send currentVote to server
+                func()
+            }else{
+			    alert("did not sent to server : " + responseText)
+			}
+
+        }
+
+        xhr.send()
+    }
+
+    function easyButtonFunc(){
+
+        sendVoteToServer(3, function () {
+            document.getElementById("easyPicID").style.display = "initial";
+            document.getElementById("easyID").disabled = true;
+
+            document.getElementById("keepUpPicID").style.display = "none";
+            document.getElementById("keepUpID").disabled = false;
+
+            document.getElementById("dontGetPicID").style.display = "none";
+            document.getElementById("dontGetID").disabled = false;
+        });
+
 
 }
 function keepUpButtonFunc(){
-	currentVote = 2;
 
-	document.getElementById("easyPicID").style.display = "none";
-	document.getElementById("easyID").disabled = false;
+    sendVoteToServer(2, function () {
+        document.getElementById("easyPicID").style.display = "none";
+        document.getElementById("easyID").disabled = false;
 
-	document.getElementById("keepUpPicID").style.display = "initial";
-	document.getElementById("keepUpID").disabled = true;
+        document.getElementById("keepUpPicID").style.display = "initial";
+        document.getElementById("keepUpID").disabled = true;
 
-	document.getElementById("dontGetPicID").style.display = "none";
-	document.getElementById("dontGetID").disabled = false;
-
-	//alert(currentVote);
-
-//TODO: send currentVote to server
+        document.getElementById("dontGetPicID").style.display = "none";
+        document.getElementById("dontGetID").disabled = false;
+    });
 
 }
 
 function dontGetButtonFunc(){
-	currentVote = 1;
 
-	document.getElementById("easyPicID").style.display = "none";
-	document.getElementById("easyID").disabled = false;
+    sendVoteToServer(1, function () {
+        document.getElementById("easyPicID").style.display = "none";
+        document.getElementById("easyID").disabled = false;
 
-	document.getElementById("keepUpPicID").style.display = "none";
-	document.getElementById("keepUpID").disabled = false;
+        document.getElementById("keepUpPicID").style.display = "none";
+        document.getElementById("keepUpID").disabled = false;
 
-	document.getElementById("dontGetPicID").style.display = "initial";
-	document.getElementById("dontGetID").disabled = true;
-
-	//alert(currentVote);
-	
-//TODO: send currentVote to server
+        document.getElementById("dontGetPicID").style.display = "initial";
+        document.getElementById("dontGetID").disabled = true;
+    });
 
 }
 
 
-document.getElementById("easyPicID").style.display = "none";
-document.getElementById("keepUpPicID").style.display = "none";
-document.getElementById("dontGetPicID").style.display = "none";
-
-
 var currentVote = 0; 
 
-//TODO: send currentVote to server
+sendVoteToServer(0, function () {
+
+    document.getElementById("easyPicID").style.display = "none";
+    document.getElementById("keepUpPicID").style.display = "none";
+    document.getElementById("dontGetPicID").style.display = "none";
+})
 
 
 
 //document.getElementById("easyPicID").style.display = "initial"; how to make it re-appear
 
-document.getElementById("titleID").innerHTML = getCourseName()+": "+ getLectureName();
-document.getElementById("courseNameID").innerHTML = getCourseName();
-document.getElementById("lectureNameID").innerHTML = getLectureName();
-document.getElementById("currentSubjectID").innerHTML = getCurrentSubject();
+ getCourseName(function (res) {
+     document.getElementById("titleID").innerHTML = res + ": " +lecture
+})
+getCourseName(function (res) {
+    document.getElementById("courseNameID").innerHTML = res
+});
+document.getElementById("lectureNameID").innerHTML = lecture
+ getCurrentSubject(function (res) {
+     document.getElementById("currentSubjectID").innerHTML = res
+});
 
 
 </script>
