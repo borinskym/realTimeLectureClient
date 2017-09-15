@@ -8,6 +8,8 @@
 
         var serverIp = "localhost"
 
+		var currentSubject
+
         //var serverIp = "localhost"
 
 		var lecture = getParameterByName("lecture", window.location.href)
@@ -186,11 +188,23 @@ function dontGetButtonFunc(){
 
 }
 
+function initChioce(){
 
+    document.getElementById("easyPicID").style.display = "none";
+    document.getElementById("keepUpPicID").style.display = "none";
+    document.getElementById("dontGetPicID").style.display = "none";
+
+    document.getElementById("dontGetID").disabled = true;
+
+    document.getElementById("keepUpID").disabled = false;
+
+    document.getElementById("easyID").disabled = false;
+
+
+}
 var currentVote = -1; 
 
 function goAFK(){
-
     sendVoteToServer(0, function () {
 
         document.getElementById("easyPicID").style.display = "none";
@@ -211,17 +225,23 @@ getCourseName(function (res) {
     document.getElementById("courseNameID").innerHTML = res
 });
 document.getElementById("lectureNameID").innerHTML = lecture
+
  getCurrentSubject(function (res) {
      document.getElementById("currentSubjectID").innerHTML = res
 });
 
 setInterval(function () {
-    if(currentSubject != getCurrentSubject()){ //TODO: these two lines contain
-        currentSubject = getCurrentSubject();  //      variobles/functions that does not exist, make this work somehow
+	 getCurrentSubject(function (subject) {
+		 if(!(currentSubject === subject)){
+		     currentSubject = subject;
 
-        goAFK()
-        }    
-    }, 1000);
+             document.getElementById("currentSubjectID").innerHTML = subject
+
+			 initChioce()
+
+		 }
+     })
+    }, 2000);
 
 </script>
 
