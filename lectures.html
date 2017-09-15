@@ -86,7 +86,7 @@
                     "columnDefs": [ {
                         "targets": 4,
                         "data": null,
-                        "defaultContent": "<button onclick='startLesson(this)'>start</button> <button onclick='deleteLesson(this)'>delete</button>"
+                        "defaultContent": "<button onclick='startLesson(this)'>start</button> <button onclick='deleteLesson(this)'>delete</button> <button onclick='showStatistics(this)'>showStatistics</button>"
                     } ]
                     ,
                     data: dataSetFromServer,
@@ -135,6 +135,19 @@
 
                     xhr.send();
                 }
+
+
+            showStatistics = function(b) {
+
+                var data = table.row( $(b).parents('tr') ).data();
+
+                var lectureName = data[0];
+
+                var subjectList = data[2].split(',');
+
+                location.replace("lectureStatistic.html?lecture=" + lectureName + "&lastSubject=" + subjectList[subjectList.length - 1])
+
+                };
 
                 deleteLesson = function (b) {
                     var data = table.row( $(b).parents('tr') ).data();
