@@ -210,6 +210,9 @@
                         alert(responseText)
                     }
                      currentSubject++;
+                     if (currentSubject == subjectList.length - 1){
+                         document.getElementById("nextSubject").disabled = true;
+                     }
                 }
 
                 xhr.send()

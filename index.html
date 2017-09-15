@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>"Welcome back!</title>
+    <title >"Welcome back!</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+<header> <img src="logo.png" id="logoPic" </header>
 <h1>welcome back !</h1>
 
-    email:<br>
-    <input type="text" id="email" name="email">
+    
+    <input type="text" id="email" name="email" placeholder="eMail:">
     <br>
-    password:<br>
-    <input type="text" id="password" name="password">
+
+    <input type="text" id="password" name="password" placeholder="PassWord:">
     <br><br>
-    <input type="button" value="Submit" onclick = verifyUserFromDB()>
-    <input type="button" value="SignUp" onclick = window.open('signup.html')>
+
+    <input id="signUpButton" type="button" value="SIGN UP" onclick = window.open('signup.html')>
+    <input id="logInButton" type="button" value="LOG IN" onclick = verifyUserFromDB()>
 
 
 
@@ -22,8 +25,6 @@
 
 
 <script>
-
-
     function createCORSRequest(method, url) {
         var xhr = new XMLHttpRequest();
         if ("withCredentials" in xhr) {
@@ -70,8 +71,5 @@
         xhr.send();
 
     }
-
-
-
 </script>
 </html>
