@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lecture live !</title>
+    <title>Lecture live!</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
     <script>
 
+        var codeOfLecture;
         var subjectsString = getParameterByName("subjects", window.location.href);
         var subjectList = subjectsString.split(',')
         var currentSubject = 0;
@@ -117,7 +119,7 @@
 
         $(document).ready(function() {
 
-            var codeOfLecture
+            
 
             var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
 
@@ -270,16 +272,22 @@
 
                 //if return -1 some error has occured
 
-
+    function getCode(){
+        alert(codeOfLecture);
+    }
+    
     </script>
 
 </head>
 <body>
+<header> <img src="logo.png" id="logoPic" </header>
+
 
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
 
 <button id="nextSubject" onclick="nextSubjectFunc()" >next subject</button>
 <button id="currentSubject" onclick="currentSubjectFunc()" >current subject</button>
+<button id="currentSubject" onclick="getCode()" >Code</button>
 
 <button id="endLecture" onclick="endLectureFunc()" > end lecture</button>
 
