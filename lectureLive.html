@@ -14,7 +14,6 @@
         var subjectsString = getParameterByName("subjects", window.location.href);
         var subjectList = subjectsString.split(',')
         var currentSubject = 0;
-
         
         function createCORSRequest(method, url) {
             var xhr = new XMLHttpRequest();
@@ -145,14 +144,14 @@
                             indexLabelFontSize: 20,
                             indexLabelFontWeight: "bold",
                             startAngle:0,
-                            indexLabelFontColor: "MistyRose",
+                            indexLabelFontColor: "blue",
                             indexLabelLineColor: "darkgrey",
                             indexLabelPlacement: "inside",
                             toolTipContent: "{name}: {y} students",
                             showInLegend: true,
                             indexLabel: "#percent%",
                             dataPoints: [
-                                {  y: 0, name: "AFK", legendMarkerType: "triangle", color: "#F0F8FF"},
+                                {  y: 0, name: "AFK", legendMarkerType: "triangle", color: "#778899"},
                                 {  y: 0, name: "Dont get it", legendMarkerType: "square", color: "#FF0000"},
                                 {  y: 0, name: "Keeping up", legendMarkerType: "cross", color: "#FFFF00"},
                                 {  y: 0, name: "this is easy", legendMarkerType: "circle", color: "#32CD32"}
@@ -222,7 +221,7 @@
                 }
 
             function nextSubjectFunc(){
-
+                changeSubjectText();
                 var lecture = getParameterByName("lecture", window.location.href);
 
                 urlRequest = "http://ec2-54-197-26-147.compute-1.amazonaws.com:3000/nextSubject?lecture=" + lecture + "&subject=" + subjectList[currentSubject] + "&nextSubject=" + subjectList[currentSubject + 1] ;
@@ -248,6 +247,7 @@
                 }
 
                 xhr.send()
+
                 }
 
             function currentSubjectFunc(){
@@ -264,7 +264,7 @@
                 xhr.onload = function() {
 
                     var responseText = xhr.responseText;
-                        alert(responseText)
+                        alert(responseText);
                     
                 }
 
@@ -276,6 +276,10 @@
     function getCode(){
         alert(codeOfLecture);
     }
+
+    function changeSubjectText(){
+    document.getElementById("curSubTextId").innerHTML = ""+currentSubjectFunc();
+    }
     
     </script>
 
@@ -284,7 +288,7 @@
 
 <header> <img src="logo.png" id="logoPic" </header>
 
-
+<p id="curSubTextId"> subject</p>
 <div id="chartContainer" style="height: 400px; width: 100%;"></div>
 
 <button id="nextSubject" onclick="nextSubjectFunc()" >next subject</button>
