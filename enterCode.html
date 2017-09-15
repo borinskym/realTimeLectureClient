@@ -4,6 +4,44 @@
 	<head>
 		<title> Enter Lecture Code </title>
   		<link rel="stylesheet" type="text/css" href="main.css">
+
+		<script>
+
+            //var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+
+
+			var serverIp = "localhost"
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    // Check if the XMLHttpRequest object has a "withCredentials" property.
+                    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                    xhr.open(method, url, true);
+
+                } else if (typeof XDomainRequest != "undefined") {
+                    // Otherwise, check if XDomainRequest.
+                    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                    xhr = new XDomainRequest();
+                    xhr.open(method, url);
+                } else {
+                    // Otherwise, CORS is not supported by the browser.
+                    xhr = null;
+
+                }
+                return xhr;
+            }
+
+            function getParameterByName(name, url) {
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+		</script>
+
 	</head>
 
 	<body>
@@ -24,8 +62,29 @@
 
 	function goFunc(){
 
-		//alert("IT WORKS!!")
-	//TODO: if the number matches to a lecture, connect, else alert("Wrong Code! try again")
+		var code = document.getElementById("GoButtonID").value
+
+        urlRequest = "http://" + serverIp + ":3000/getLectureByCode?code=" + code;
+
+
+        var xhr = createCORSRequest('GET', urlRequest);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+
+        xhr.onload = function () {
+            var responseText = xhr.responseText;
+
+            if(responseText === "fail"){
+                alert("Wrong Code! try again")
+            }else{
+                location.replace("liveLectureStudent.html?lecture=" + responseText)
+			}
+
+        }
+
+        xhr.send()
+
 	}
 
 
