@@ -1,0 +1,87 @@
+header {
+  margin:0px;
+  width: 100vw;
+  height: 15.7vh;
+  border-radius: 2px;
+  background-color: #001c54;
+}
+
+#logoPic {
+  margin:2.6vh 80.1vw 0vh 2vw;
+  width: 16.8vw;
+  height: 10.9vh;
+}
+
+#firstLine {
+  margin:2.3vh 0vw 0vh 3.1vw;
+  width: 35vw;
+  height:3.55h;
+
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.29;
+  text-align: left;
+  color: #001c54;
+}
+#firstText {
+  width: 3vw;
+  height:3.55h;
+}
+
+p {
+  margin:2.3vh 0vw 0vh 3.1vw;
+  width: 20vw;
+  height:3.55h;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.29;
+  text-align: left;
+  color: #001c54;
+}
+input {
+
+}
+table {
+	  margin:14.1vh 0vw 0vh 3.1vw;
+	  width: 60vw;
+	  height: 40vh;
+}
+th {
+	vertical-align: top;
+}
+
+#saveButton {
+	  margin:0vh 40vw 0vh 40vw;
+	  width: 13vw;
+	  height: 7vh;
+  border-radius: 2px;
+  background-color: #001c54;
+  font-family: Roboto;
+  font-size: 4vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#firstSubText {
+	margin-left: 0;
+	margin-right: 4.5vw;
+}
+#subjectsText {
+	text-align: center;
+}
+#midTr {
+	width: 6vw;
+}
+button {
+  font-family: Roboto;
+    color: #001c54;
+
+}
+
+select {
+  font-family: Roboto;
+  color: #001c54;
+
+}

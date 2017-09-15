@@ -130,44 +130,64 @@
         });
 
 
+
+// first subjext field:     <div><input type="text"  name="mytext[]"></div>
+
     </script>
+
+        <link rel="stylesheet" type="text/css" href="addLecture.css">
 
 </head>
 <body>
+<header> <img src="logo.png" id="logoPic" </header>
+<table>
+  <tr>
+    <th>
+        
+        <p id="firstLine"> Lesson name:  <input type="e" name="name" placeHolder="Name this lesson" id="lesson_name"> 
+        </p>
+   
 
+        <p> Course: <select id="course_select">
+            <option value="math">Math</option>
+            <option value="history">History</option>
+            <option value="film">Film</option>
+            <option  value="other">Other</option>
+            </select>
+        </p>
+    
+        <p>Date: <input type="text" id="datepicker" ></p>
+        <p>
+            Select a time:
+            <input type="time" id="hours_time" name="usr_time">
+        </p>
 
-    Lesson name:<br>
-    <input type="e" name="name" value="Lesson Name" id="lesson_name">
-    <br>
-    Course:<br>
-    <select id="course_select">
-        <option value="math">Math</option>
-        <option value="history">History</option>
-        <option value="film">Film</option>
-        <option  value="other">Other</option>
-    </select>
-    <br>
-    <p>Date: <input type="text" id="datepicker" ></p>
-    <br>
-    Select a time:
-    <input type="time" id="hours_time" name="usr_time">
-    <br>
-    Select length of lesson :
-    <input type="number" name="quantity" id="length_lesson" min="1" max="6">
-    <br><br>
-    Subjects :
-    <div class="input_fields_wrap">
-        <button class="add_field_button">Add More Subjects</button>
-        <div><input type="text"  name="mytext[]"></div>
-    </div>
-    <br>
-    <br>
+        <p>
+            Select length of lesson:
+            <input type="number" name="quantity" id="length_lesson" min="1" max="6">
+        </p>
 
-    <input type="submit" value="Submit" onclick="addLectureFunc()">
+      
 
-<br>
+    </th>
+    <th >
+        <P id="midTr">    Subjects:
+        </P>
+    </th>
+    <th>
+        <p id="subjectsText">
+            
+            <div class="input_fields_wrap">
 
+                <button class="add_field_button">Add More Subjects</button>
+            </div>
 
+        </p>
+    </th> 
+
+  </tr>
+</table>
+  <input id="saveButton" type="submit" value="SAVE" onclick="addLectureFunc()">
 
 </body>
 </html>
