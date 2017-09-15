@@ -10,7 +10,7 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
 
-        var serverIp = "ec2-54-197-26-147.compute-1.amazonaws.com"
+        var serverIp = "localhost"
 
 
         //var serverIp = "localhost"
@@ -149,10 +149,19 @@
                 var lectureName = data[0];
 
                 var subjectList = data[2].split(',');
+                window.open("lectureStatistic.html?lecture=" + lectureName + "&lastSubject=" + subjectList[subjectList.length - 1]);
 
-                location.replace("lectureStatistic.html?lecture=" + lectureName + "&lastSubject=" + subjectList[subjectList.length - 1])
 
-                };
+
+           //     var window2 = window; 
+           //     window2.location.replace("lectureStatistic.html?lecture=" + lectureName + "&lastSubject=" + subjectList[subjectList.length - 1]);
+            //    if($('#window2').is(':empty'))
+             //   {
+         //       } else{
+           //         window.location.href = "lectureStatistic.html?lecture=" + lectureName + "&lastSubject=" + subjectList[subjectList.length - 1]      
+  //              }
+ 
+               };
 
                 deleteLesson = function (b) {
                     var data = table.row( $(b).parents('tr') ).data();
