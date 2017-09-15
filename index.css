@@ -106,6 +106,68 @@ h1 {
   color: #ffffff;
 }
 
+#nextSubject {
+  margin:2.9vh 0vw 0vh 36vw;
+  width: 8vw;
+  height: 3.9vh;
+  border-radius: 2px;
+  background-color: #001c54;
+  font-family: Roboto;
+  font-size: 1.2vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+}
+#codeButton {
+  margin:2.9vh 0vw 0vh 1.4vw;
+  width: 8vw;
+  height: 3.9vh;
+  border-radius: 2px;
+  background-color: #001c54;
+  font-family: Roboto;
+  font-size: 1.2vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+}
+#endLecture {
+  margin:2.9vh 0vw 0vh 1.4vw;
+  width: 8vw;
+  height: 3.9vh;
+  border-radius: 2px;
+  background-color: #001c54;
+  font-family: Roboto;
+  font-size: 1.2vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+}
+#currentSubject {
+  margin:2.9vh 0vw 0vh 1.4vw;
+  width: 8vw;
+  height: 3.9vh;
+  border-radius: 2px;
+  background-color: #001c54;
+  font-family: Roboto;
+  font-size: 1.2vh;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+}
 #curSubTextId {
+  margin:0vh 0vw 0vh 46vw;
+  width: 20vw;
+  height: 20vh;
+  font-size: 8vh;
+  font-family: Roboto;
+
+ color: #001c54;
+}
+#chartContainer{
+    margin:0vh 0vw 0vh 31vw;
 
 }

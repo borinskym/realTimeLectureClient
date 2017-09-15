@@ -15,7 +15,6 @@
         var subjectList = subjectsString.split(',')
         var currentSubject = 0;
 
-
         //var serverIp = "localhost"
         var serverIp = "localhost"
 
@@ -144,7 +143,7 @@
                         {
                             type: "pie",
                             colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f'],
-                            indexLabelFontFamily: "Garamond",
+                            indexLabelFontFamily: "Roboto",
                             indexLabelFontSize: 20,
                             indexLabelFontWeight: "bold",
                             startAngle:0,
@@ -155,10 +154,10 @@
                             showInLegend: true,
                             indexLabel: "#percent%",
                             dataPoints: [
-                                {  y: 0, name: "AFK", legendMarkerType: "triangle", color: "#778899"},
+                                {  y: 0, name: "AFK", legendMarkerType: "square", color: "#778899"},
                                 {  y: 0, name: "Dont get it", legendMarkerType: "square", color: "#FF0000"},
-                                {  y: 0, name: "Keeping up", legendMarkerType: "cross", color: "#FFFF00"},
-                                {  y: 0, name: "this is easy", legendMarkerType: "circle", color: "#32CD32"}
+                                {  y: 0, name: "Keeping up", legendMarkerType: "square", color: "#FFFF00"},
+                                {  y: 0, name: "this is easy", legendMarkerType: "square", color: "#32CD32"}
                             ]
                         }
                     ]
@@ -239,8 +238,6 @@
 
                     var responseText = xhr.responseText;
                     if (responseText === "ok") {
-                        alert("" + subjectList[currentSubject])
-
                     }else{
                         alert(responseText)
                     }
@@ -284,7 +281,12 @@
     function changeSubjectText(){
     document.getElementById("curSubTextId").innerHTML = ""+subjectList[currentSubject+1];
     }
-    
+
+    setTimeout(function (){
+
+    document.getElementById("curSubTextId").innerHTML = ""+subjectList[0];
+
+}, 50);
     </script>
 
 </head>
@@ -292,14 +294,17 @@
 
 <header> <img src="logo.png" id="logoPic" </header>
 
-<p id="curSubTextId"> subject</p>
-<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+<p id="curSubTextId">  </p>
 
-<button id="nextSubject" onclick="nextSubjectFunc()" >next subject</button>
-<button id="currentSubject" onclick="currentSubjectFunc()" >current subject</button>
-<button id="codeButton" onclick="getCode()" >get Code</button>
+<div id="chartContainer" style="height: 35vh; width: 35vw;"></div>
 
-<button id="endLecture" onclick="endLectureFunc()" > end lecture</button>
+<button id="nextSubject" onclick="nextSubjectFunc()" >NEXT SUBJECT</button>
+
+<button id="codeButton" onclick="getCode()" >GET CODE</button>
+
+<button id="endLecture" onclick="endLectureFunc()" >END LECTURE</button>
+
+
 
 </body>
 </html>
